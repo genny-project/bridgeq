@@ -1,0 +1,51 @@
+version: "3.9"
+services:
+
+  bridgeq:
+    image: gennyproject/bridgeq:latest
+#depends_on:
+#       apiq
+#      apiq:
+#        condition: service_healthy
+    container_name: bridgeq
+    environment:
+      - ADMIN_USERNAME=GENNY
+      - ADMIN_PASSWORD=GENNY
+      - VIRTUAL_HOST=bridge.genny.life
+      - VIRTUAL_PORT=8088
+      - VIRTUAL_PROTO=http
+      - CERT_NAME=genny.life
+      - KEYCLOAKURL=https://keycloak.gada.io/auth/realms
+      - CACHE_SERVER_NAME=qwanda-service
+      - DDTHOST=TRUE
+      - API_PORT=8088
+      - CACHE_API_PORT=8089
+      - MODE_GZIP=TRUE
+      - ZIP_MIN_THRESHOLD_BYTES=8000000
+      - MEDIA_PROXY_URL=https://alyson.genny.life/web/public
+    networks:
+      - mainproxy
+    ports:
+      - 8088:8088
+      - 8790:8787
+      - 8089:8089
+      - 5701:5701
+      - 10001:10001
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8088/version"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+
+ 
+volumes:
+  mysql_data:
+  minio_conf:
+  minio_data:
+  maildata:
+    driver: local
+  mailstate:
+    driver: local
+networks:
+  mainproxy:
+    driver: bridge
