@@ -1,4 +1,4 @@
-package life.genny.bridge.endpoints;
+package life.genny.security.openid.connect.web.authentication;
 
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
@@ -31,9 +31,6 @@ public class BridgeResource {
 	@ConfigProperty(name = "default.realm", defaultValue = "genny")
 	String defaultRealm;
 
-	
-	@Inject
-	SecurityIdentity securityIdentity;
 
 	@Inject
 	JsonWebToken accessToken;

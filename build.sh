@@ -1,2 +1,2 @@
 #!/bin/bash
-./mvnw clean package -DskipTests=false
+./mvnw clean package -DskipTests=true
