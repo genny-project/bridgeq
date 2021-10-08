@@ -1,5 +1,7 @@
 package life.genny.security.openid.connect.web.authentication;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -38,6 +40,7 @@ public class TokenResource {
      * @return a map containing the tokens available to the application
      */
     @GET
+    @RolesAllowed("user")
     public String getTokens() {
         StringBuilder response = new StringBuilder().append("<html>")
                 .append("<body>")

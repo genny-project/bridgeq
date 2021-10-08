@@ -1,6 +1,6 @@
 package life.genny.security.openid.connect.web.authentication;
 
-import javax.annotation.security.PermitAll;
+
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
@@ -10,7 +10,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.OPTIONS;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -23,20 +22,20 @@ import io.quarkus.oidc.IdToken;
 import io.quarkus.oidc.RefreshToken;
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
-import io.quarkus.security.identity.SecurityIdentity;
 
-@Path("/api")
+@Path("/service")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class BridgeResource {
 
-	private static final Logger log = Logger.getLogger(BridgeResource.class);
+public class ServiceResource {
+
+	private static final Logger log = Logger.getLogger(ServiceResource.class);
 
 	@ConfigProperty(name = "default.realm", defaultValue = "genny")
 	String defaultRealm;
 
 
-	   /**
+    /**
      * Injection point for the ID Token issued by the OpenID Connect Provider
      */
     @Inject
@@ -55,7 +54,6 @@ public class BridgeResource {
     @Inject
     RefreshToken refreshToken;
 
-
 	@OPTIONS
 	public Response opt() {
 		return Response.ok().build();
@@ -63,43 +61,28 @@ public class BridgeResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/events/init")
-	@PermitAll
-	public Response getInit(@QueryParam("url") final String url) {
-
-        StringBuilder response = new StringBuilder().append("<html>")
-                .append("<body>")
-                .append("<ul>");
-
-        Object userName = this.idToken.getClaim("preferred_username");
-
-        if (userName != null) {
-            response.append("<li>username: ").append(userName.toString()).append("</li>");
-        }
-
-        Object scopes = this.accessToken.getClaim("scope");
-
-        if (scopes != null) {
-            response.append("<li>scopes: ").append(scopes.toString()).append("</li>");
-        }
-
-        response.append("<li>refresh_token: ").append(refreshToken.getToken() != null).append("</li>");
-
-        response.append("<li>Bridge init url = "+url+"</li>").append("</ul>").append("</body>").append("</html>").toString();
-
-        return Response.status(Status.OK).entity(response).build();
+	@Path("/")
+	@RolesAllowed("admin")
+	public Response performService() {
+		GennyToken gennyToken = new GennyToken(accessToken.getRawToken());
+//		if (!gennyToken.hasRole("admin")) {
+//			return Response.status(Status.FORBIDDEN).entity("Forbidden").build();
+//		}
+		String initJson = "Service Call user roles "+gennyToken.userRoles;
+		
+		return Response.status(Status.OK).entity(initJson).build();
 	}
 
 
 	@Transactional
 	void onStart(@Observes StartupEvent ev) {
-		log.info("Bridge Endpoint starting");
+		log.info("Service Endpoint starting");
 
 
 	}
 
 	@Transactional
 	void onShutdown(@Observes ShutdownEvent ev) {
-		log.info("Bridge Endpoint Shutting down");
+		log.info("Service Endpoint Shutting down");
 	}
 }
