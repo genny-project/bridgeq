@@ -46,7 +46,7 @@ public class CodeFlowTest {
 			titleText = page.getTitleText();
 			System.out.println(titleText);
 
-			assertEquals("Welcome to Your Quarkus Application", titleText,
+			assertEquals("WBridge", titleText,
 					"A second request should not redirect and just re-authenticate the user");
 		}
 	}
@@ -77,7 +77,7 @@ public class CodeFlowTest {
 
 			page = webClient.getPage("http://localhost:8081/index.html");
 
-			assertTrue(page.getTitleText().contains("in to "+project));
+			assertTrue(page.getTitleText().contains("Bridge"));
 		}
 	}
 
