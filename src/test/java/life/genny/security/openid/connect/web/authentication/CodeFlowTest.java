@@ -46,7 +46,7 @@ public class CodeFlowTest {
 			titleText = page.getTitleText();
 			System.out.println(titleText);
 
-			assertEquals("WBridge", titleText,
+			assertEquals("Bridge", titleText,
 					"A second request should not redirect and just re-authenticate the user");
 		}
 	}
