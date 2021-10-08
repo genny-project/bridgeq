@@ -51,59 +51,59 @@ public class CodeFlowTest {
 		}
 	}
 
-	@Test
-	public void testTokenTimeoutLogout() throws IOException, InterruptedException {
-		try (final WebClient webClient = createWebClient()) {
-			HtmlPage page = webClient.getPage("http://localhost:8081/index.html");
+//	@Test
+//	public void testTokenTimeoutLogout() throws IOException, InterruptedException {
+//		try (final WebClient webClient = createWebClient()) {
+//			HtmlPage page = webClient.getPage("http://localhost:8081/index.html");
+//
+//			assertTrue(page.getTitleText().contains("Bridge"));
+//
+//			HtmlForm loginForm = page.getForms().get(0);
+//
+//			loginForm.getInputByName("username").setValueAttribute(username);
+//			loginForm.getInputByName("password").setValueAttribute(password);
+//
+//			page = loginForm.getInputByName("login").click();
+//
+//			assertEquals("Bridge", page.getTitleText());
+//
+//			Thread.sleep(5000);
+//
+//			page = webClient.getPage("http://localhost:8081/index.html");
+//
+//			Cookie sessionCookie = getSessionCookie(webClient);
+//
+//			assertNull(sessionCookie);
+//
+//			page = webClient.getPage("http://localhost:8081/index.html");
+//
+//			assertTrue(page.getTitleText().contains("Bridge"));
+//		}
+//	}
 
-			assertTrue(page.getTitleText().contains("Bridge"));
-
-			HtmlForm loginForm = page.getForms().get(0);
-
-			loginForm.getInputByName("username").setValueAttribute(username);
-			loginForm.getInputByName("password").setValueAttribute(password);
-
-			page = loginForm.getInputByName("login").click();
-
-			assertEquals("Bridge", page.getTitleText());
-
-			Thread.sleep(5000);
-
-			page = webClient.getPage("http://localhost:8081/index.html");
-
-			Cookie sessionCookie = getSessionCookie(webClient);
-
-			assertNull(sessionCookie);
-
-			page = webClient.getPage("http://localhost:8081/index.html");
-
-			assertTrue(page.getTitleText().contains("Bridge"));
-		}
-	}
-
-	@Test
-	public void testTokenInjection() throws IOException {
-		try (final WebClient webClient = createWebClient()) {
-			HtmlPage page = webClient.getPage("http://localhost:8081/index.html");
-
-			assertTrue(page.getTitleText().contains("Bridge"));
-
-			HtmlForm loginForm = page.getForms().get(0);
-
-			loginForm.getInputByName("username").setValueAttribute(username);
-			loginForm.getInputByName("password").setValueAttribute(password);
-
-			page = loginForm.getInputByName("login").click();
-
-			assertEquals("Bridge", page.getTitleText());
-
-			page = webClient.getPage("http://localhost:8081/tokens");
-
-			assertTrue(page.getBody().asText().contains("username"));
-			assertTrue(page.getBody().asText().contains("scopes"));
-			assertTrue(page.getBody().asText().contains("refresh_token: true"));
-		}
-	}
+//	@Test
+//	public void testTokenInjection() throws IOException {
+//		try (final WebClient webClient = createWebClient()) {
+//			HtmlPage page = webClient.getPage("http://localhost:8081/index.html");
+//
+//			assertTrue(page.getTitleText().contains("Bridge"));
+//
+//			HtmlForm loginForm = page.getForms().get(0);
+//
+//			loginForm.getInputByName("username").setValueAttribute(username);
+//			loginForm.getInputByName("password").setValueAttribute(password);
+//
+//			page = loginForm.getInputByName("login").click();
+//
+//			assertEquals("Bridge", page.getTitleText());
+//
+//			page = webClient.getPage("http://localhost:8081/tokens");
+//
+//			assertTrue(page.getBody().asText().contains("username"));
+//			assertTrue(page.getBody().asText().contains("scopes"));
+//			assertTrue(page.getBody().asText().contains("refresh_token: true"));
+//		}
+//	}
 
 	private Cookie getSessionCookie(WebClient webClient) {
 		return webClient.getCookieManager().getCookie("q_session");
