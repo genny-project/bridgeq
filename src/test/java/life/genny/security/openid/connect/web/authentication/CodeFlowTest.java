@@ -18,10 +18,9 @@ import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 public class CodeFlowTest {
-
-	final String project="quarkus";
-	final String username="alice";
-	final String password="alice";
+	final String project="genny";
+	final String username="support+alyson@gada.io";
+	final String password="alyson";
 	
 	@Test
 	public void testCodeFlowNoConsent() throws IOException {
@@ -29,7 +28,7 @@ public class CodeFlowTest {
 			HtmlPage page = webClient.getPage("http://localhost:8081/index.html");
 			String titleText = page.getTitleText();
 			System.out.println(titleText);
-	        assertTrue(titleText.contains("in to "+project));
+	        assertTrue(titleText.contains("Bridge"));
 	           
 			HtmlForm loginForm = page.getForms().get(0);
 
@@ -40,7 +39,7 @@ public class CodeFlowTest {
 
 			titleText = page.getTitleText();
 			System.out.println(titleText);
-			assertEquals("Welcome to Your Quarkus Application", titleText);
+			assertEquals("Bridge", titleText);
 
 			page = webClient.getPage("http://localhost:8081/index.html");
 			
@@ -57,7 +56,7 @@ public class CodeFlowTest {
 		try (final WebClient webClient = createWebClient()) {
 			HtmlPage page = webClient.getPage("http://localhost:8081/index.html");
 
-			assertTrue(page.getTitleText().contains("in to "+project));
+			assertTrue(page.getTitleText().contains("Bridge"));
 
 			HtmlForm loginForm = page.getForms().get(0);
 
@@ -66,7 +65,7 @@ public class CodeFlowTest {
 
 			page = loginForm.getInputByName("login").click();
 
-			assertEquals("Welcome to Your Quarkus Application", page.getTitleText());
+			assertEquals("Bridge", page.getTitleText());
 
 			Thread.sleep(5000);
 
@@ -87,7 +86,7 @@ public class CodeFlowTest {
 		try (final WebClient webClient = createWebClient()) {
 			HtmlPage page = webClient.getPage("http://localhost:8081/index.html");
 
-			assertTrue(page.getTitleText().contains("in to "+project));
+			assertTrue(page.getTitleText().contains("Bridge"));
 
 			HtmlForm loginForm = page.getForms().get(0);
 
@@ -96,7 +95,7 @@ public class CodeFlowTest {
 
 			page = loginForm.getInputByName("login").click();
 
-			assertEquals("Welcome to Your Quarkus Application", page.getTitleText());
+			assertEquals("Bridge", page.getTitleText());
 
 			page = webClient.getPage("http://localhost:8081/tokens");
 

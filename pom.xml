@@ -7,7 +7,7 @@
 
 	<groupId>life.genny</groupId>
 	<artifactId>bridgeq</artifactId>
-	<version>9.8.0</version>
+	<version>9.9.0</version>
 
 	<properties>
 		<quarkus-plugin.version>2.3.0.Final</quarkus-plugin.version>
