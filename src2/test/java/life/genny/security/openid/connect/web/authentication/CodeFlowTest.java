@@ -18,9 +18,16 @@ import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 public class CodeFlowTest {
-	final String project="genny";
-	final String username="support+alyson@gada.io";
-	final String password="alyson";
+	final String project="quarkus";
+//	final String username="jdoe";
+//	final String password="jdoe";
+	final String username="alice";
+	final String password="asdf1234";
+//	final String username="bob";
+//	final String password="bob";
+	final String adminUsername="alice";
+	final String adminPassword="alice";
+
 	
 	@Test
 	public void testCodeFlowNoConsent() throws IOException {
@@ -28,18 +35,20 @@ public class CodeFlowTest {
 			HtmlPage page = webClient.getPage("http://localhost:8081/index.html");
 			String titleText = page.getTitleText();
 			System.out.println(titleText);
-	        assertTrue(titleText.contains("Bridge"));
+	        assertEquals("Sign in to quarkus", titleText,
+					"Should say 'Sign in to quarkus'");
 	           
 			HtmlForm loginForm = page.getForms().get(0);
 
 			loginForm.getInputByName("username").setValueAttribute(username);
 			loginForm.getInputByName("password").setValueAttribute(password);
-
+			System.out.println("test login with "+username);
 			page = loginForm.getInputByName("login").click();
 
 			titleText = page.getTitleText();
 			System.out.println(titleText);
-			assertEquals("Bridge", titleText);
+			   assertEquals("Bridge", titleText,
+						"Should say 'Bridge'");
 
 			page = webClient.getPage("http://localhost:8081/index.html");
 			

@@ -246,7 +246,7 @@
       } ],
       "security-admin-console" : [ ],
       "admin-cli" : [ ],
-      "frontend" : [ {
+      "alyson" : [ {
         "id" : "df147a91-6da7-4bbc-866c-f30cf99b2637",
         "name" : "uma_protection",
         "composite" : false,
@@ -391,7 +391,7 @@
     "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
   }, {
     "id" : "0ac5df91-e044-4051-bd03-106a3a5fb9cc",
-    "clientId" : "frontend",
+    "clientId" : "alyson",
     "surrogateAuthRequired" : false,
     "enabled" : true,
     "redirectUris" : ["*"],
