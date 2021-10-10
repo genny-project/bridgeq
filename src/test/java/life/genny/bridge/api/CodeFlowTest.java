@@ -1,4 +1,4 @@
-package org.acme.security.openid.connect.web.authentication;
+package life.genny.bridge.api;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
