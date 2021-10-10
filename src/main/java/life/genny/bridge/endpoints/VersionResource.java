@@ -40,8 +40,8 @@ public class VersionResource {
 
 	private static final Logger log = Logger.getLogger(VersionResource.class);
 	
-	public static final String GIT_VERSION_PROPERTIES = "GitVersion.properties";
-	public static final String PROJECT_DEPENDENCIES = "project_dependencies";
+	public static final String GIT_VERSION_PROPERTIES = "bridgeq-git.properties";
+	public static final String PROJECT_DEPENDENCIES = "qwanda-utils,qwanda";
 
 	
 	@OPTIONS
@@ -56,11 +56,14 @@ public class VersionResource {
 	public Response getVersion() {
 		Properties properties = new Properties();
 		String versionString = "";
+		// TODO - FIX
 		try {
 			properties.load(Thread.currentThread().getContextClassLoader().getResource(GIT_VERSION_PROPERTIES)
 					.openStream());
-			String projectDependencies = properties.getProperty(PROJECT_DEPENDENCIES);
-			versionString = GitUtils.getGitVersionString(projectDependencies);
+//			String projectDependencies = PROJECT_DEPENDENCIES; //properties.getProperty(PROJECT_DEPENDENCIES); // TODO get GIT projects
+//			versionString = GitUtils.getGitVersionString(projectDependencies);
+			versionString = properties.getProperty("git.build.version");
+			versionString += "\n"+properties.getProperty("git.commit.id");
 		} catch (IOException e) {
 			log.error("Error reading GitVersion.properties", e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
