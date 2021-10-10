@@ -58,13 +58,8 @@ public class VersionResource {
 		String versionString = "";
 		// TODO - FIX
 		try {
-			try {
-				properties.load(Thread.currentThread().getContextClassLoader().getResource(GIT_VERSION_PROPERTIES)
-						.openStream());
-			} catch (NullPointerException e) {
-				// This error occurs under native mode
-		        return Response.status(Status.OK).entity("In Native mode").build();
-			}
+			properties.load(Thread.currentThread().getContextClassLoader().getResource(GIT_VERSION_PROPERTIES)
+					.openStream());
 //			String projectDependencies = PROJECT_DEPENDENCIES; //properties.getProperty(PROJECT_DEPENDENCIES); // TODO get GIT projects
 //			versionString = GitUtils.getGitVersionString(projectDependencies);
 			versionString = properties.getProperty("git.build.version");

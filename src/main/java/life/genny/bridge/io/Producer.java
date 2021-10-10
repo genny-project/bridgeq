@@ -1,17 +1,22 @@
-package life.genny.bridge.producers;
+package life.genny.bridge.io;
 
-//import javax.enterprise.context.ApplicationScoped;
-//import javax.inject.Inject;
-//
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+
+
 //import org.eclipse.microprofile.reactive.messaging.Channel;
 //import org.eclipse.microprofile.reactive.messaging.Emitter;
 //import org.eclipse.microprofile.rest.client.inject.RestClient;
-//
-//@ApplicationScoped
-//public class Producer {
-//
-//  @Inject @RestClient VirtualChannelServices virtualChannel;
-//
+
+@ApplicationScoped
+public class Producer {
+
+  @Inject @RestClient VirtualChannelServices virtualChannel;
+
 //  @Inject @Channel("eventsout") Emitter<String> events;
 //  public Emitter<String> getToEvents() {
 //    return events;
@@ -75,5 +80,5 @@ package life.genny.bridge.producers;
 //  public VirtualHttpChannel getToDataWithReply() {
 //    return VirtualHttpChannel.post(virtualChannel);
 //  }
-//}
+}
 
