@@ -1,5 +1,5 @@
-package life.genny.bridge.producers;
-
+package life.genny.bridge;
+//
 //import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 //import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 //
@@ -7,7 +7,7 @@ package life.genny.bridge.producers;
 //
 //import javax.ws.rs.POST;
 //import javax.ws.rs.Path;
-
+//
 //@Path("/eventbus")
 //@RegisterRestClient
 //@RegisterProvider(value = MyMapper.class,

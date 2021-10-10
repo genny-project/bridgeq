@@ -94,44 +94,44 @@ public class ServiceResource {
 	    // Add the token to the incoming message
 	    jsonBody.put("token", accessToken.getRawToken());
 
-         final DeliveryOptions options = new DeliveryOptions();
-        options.addHeader("Authorization", "Bearer " + accessToken.getRawToken());
-
-        if ("EVT_MSG".equals(jsonBody.getString("msg_type")) || "events".equals(channel) || "event".equals(channel)) {
-          log.info("EVT API POST   >> EVENT-BUS EVENT:");
-          
-     //     producer.getToEvents().send(jsonBody.toString());
-
-        } else if ( "webcmds".equals(channel)) {
-          log.info("WEBCMD API POST   >> WEB CMDS :" + jsonBody);
-        //  EBCHandlers.sendToClientSessions(userToken, jsonBody, false);
-        } else if ("webdata".equals(channel)) {
-          log.info("WEBDATA API POST   >> WEB DATA :" + jsonBody);
-        //   EBCHandlers.sendToClientSessions(userToken, jsonBody, singleSession);
-
-        } else if (jsonBody.getString("msg_type").equals("CMD_MSG") || "cmds".equals(channel)) {
-          log.info("CMD API POST   >> EVENT-BUS CMD  :" + jsonBody);
-       //    producer.getToCmds().send(jsonBody.toString());
-        } else if (jsonBody.getString("msg_type").equals("MSG_MESSAGE") || "messages".equals(channel)) {
-          log.info("MESSAGES API POST   >> EVENT-BUS MSG DATA :");
-       //   producer.getToMessages().send(jsonBody.toString());
-        } else if ("DATA_MSG".equals(jsonBody.getString("msg_type")) || "answer".equals(channel)) {
-            log.info("ANSWER API POST   >> EVENT-BUS MSG ANSWER :");
-            QDataAnswerMessage msg = JsonUtils.fromJson(jsonBody.toString(), QDataAnswerMessage.class);
-            Answer ans = msg.getItems()[0]; // TODO assume at least one answer
-				JsonObject json = new JsonObject(JsonUtils.toJson(ans));
-				json.put("token", accessToken.getRawToken());
-            log.info("Answer Message:<<"+json.toString()+">>");
-        //    producer.getToAnswer().send(json.toString());
-
-        } else if (jsonBody.getString("msg_type").equals("DATA_MSG") || "data".equals(channel)) {
-          log.info("CMD API POST   >> EVENT-BUS DATA :");
-          log.error("we got into DATA_MSG sending to data");
-          if ("Rule".equals(jsonBody.getString("data_type"))) {
-            log.info("INCOMING RULE !");
-          }
-       //   producer.getToData().send(jsonBody.toString());
-        }
+//         final DeliveryOptions options = new DeliveryOptions();
+//        options.addHeader("Authorization", "Bearer " + accessToken.getRawToken());
+//
+//        if ("EVT_MSG".equals(jsonBody.getString("msg_type")) || "events".equals(channel) || "event".equals(channel)) {
+//          log.info("EVT API POST   >> EVENT-BUS EVENT:");
+//          
+//     //     producer.getToEvents().send(jsonBody.toString());
+//
+//        } else if ( "webcmds".equals(channel)) {
+//          log.info("WEBCMD API POST   >> WEB CMDS :" + jsonBody);
+//        //  EBCHandlers.sendToClientSessions(userToken, jsonBody, false);
+//        } else if ("webdata".equals(channel)) {
+//          log.info("WEBDATA API POST   >> WEB DATA :" + jsonBody);
+//        //   EBCHandlers.sendToClientSessions(userToken, jsonBody, singleSession);
+//
+//        } else if (jsonBody.getString("msg_type").equals("CMD_MSG") || "cmds".equals(channel)) {
+//          log.info("CMD API POST   >> EVENT-BUS CMD  :" + jsonBody);
+//       //    producer.getToCmds().send(jsonBody.toString());
+//        } else if (jsonBody.getString("msg_type").equals("MSG_MESSAGE") || "messages".equals(channel)) {
+//          log.info("MESSAGES API POST   >> EVENT-BUS MSG DATA :");
+//       //   producer.getToMessages().send(jsonBody.toString());
+//        } else if ("DATA_MSG".equals(jsonBody.getString("msg_type")) || "answer".equals(channel)) {
+//            log.info("ANSWER API POST   >> EVENT-BUS MSG ANSWER :");
+//            QDataAnswerMessage msg = JsonUtils.fromJson(jsonBody.toString(), QDataAnswerMessage.class);
+//            Answer ans = msg.getItems()[0]; // TODO assume at least one answer
+//				JsonObject json = new JsonObject(JsonUtils.toJson(ans));
+//				json.put("token", accessToken.getRawToken());
+//            log.info("Answer Message:<<"+json.toString()+">>");
+//        //    producer.getToAnswer().send(json.toString());
+//
+//        } else if (jsonBody.getString("msg_type").equals("DATA_MSG") || "data".equals(channel)) {
+//          log.info("CMD API POST   >> EVENT-BUS DATA :");
+//          log.error("we got into DATA_MSG sending to data");
+//          if ("Rule".equals(jsonBody.getString("data_type"))) {
+//            log.info("INCOMING RULE !");
+//          }
+//       //   producer.getToData().send(jsonBody.toString());
+//        }
  		
 		return Response.status(Status.OK).entity(initJson).build();
 	}

@@ -1,9 +1,9 @@
-package life.genny.bridge.producers;
-
-import java.util.function.Consumer;
-
-import io.vertx.core.json.JsonObject;
-
+package life.genny.bridge;
+//
+//import java.util.function.Consumer;
+//
+//import io.vertx.core.json.JsonObject;
+//
 //@FunctionalInterface
 //public interface VirtualHttpChannel {
 //

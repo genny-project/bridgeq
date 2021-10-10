@@ -1,5 +1,5 @@
-package life.genny.bridge.producers;
-
+package life.genny.bridge;
+//
 //import javax.enterprise.context.ApplicationScoped;
 //import javax.inject.Inject;
 //
@@ -76,4 +76,4 @@ package life.genny.bridge.producers;
 //    return VirtualHttpChannel.post(virtualChannel);
 //  }
 //}
-
+//

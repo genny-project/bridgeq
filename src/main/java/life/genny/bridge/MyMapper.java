@@ -1,5 +1,5 @@
-package life.genny.bridge.producers;
-
+package life.genny.bridge;
+//
 //import java.io.ByteArrayInputStream;
 //
 //import javax.annotation.Priority;
