@@ -1,4 +1,4 @@
-package org.acme.security.openid.connect.web.authentication;
+package life.genny.bridge.models;
 
 import java.util.ArrayList;
 import java.util.List;

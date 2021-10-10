@@ -1,4 +1,4 @@
-package org.acme.security.openid.connect.web.authentication;
+package life.genny.bridge.endpoints;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;

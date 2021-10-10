@@ -1,6 +1,7 @@
-package org.acme.security.openid.connect.web.authentication;
+package life.genny.bridge.endpoints;
 
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
@@ -22,8 +23,9 @@ import io.quarkus.oidc.IdToken;
 import io.quarkus.oidc.RefreshToken;
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
+import life.genny.bridge.models.GennyToken;
 
-@Path("/service")
+@Path("/api/service")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 
@@ -53,6 +55,16 @@ public class ServiceResource {
      */
     @Inject
     RefreshToken refreshToken;
+    
+	@ConfigProperty(name = "quarkus.oidc.auth-server-url", defaultValue = "http://localhost:8180/auth/realms/quarkus")
+	String keycloakAuthUrl;
+
+	@ConfigProperty(name = "quarkus.oidc.client-id", defaultValue = "frontend")
+	String keycloakClientId;
+
+	@ConfigProperty(name = "google.api.key")
+	String googleApiKey;
+
 
 	@OPTIONS
 	public Response opt() {
@@ -61,14 +73,14 @@ public class ServiceResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/")
-	@RolesAllowed("admin")
+	@Path("/commands")
+	//@PermitAll
 	public Response performService() {
 		GennyToken gennyToken = new GennyToken(accessToken.getRawToken());
-//		if (!gennyToken.hasRole("admin")) {
-//			return Response.status(Status.FORBIDDEN).entity("Forbidden").build();
-//		}
-		String initJson = "Service Call user roles "+gennyToken.userRoles;
+		if (!gennyToken.hasRole("admin")&& !gennyToken.hasRole("dev") && !gennyToken.hasRole("test")) {
+			return Response.status(Status.FORBIDDEN).entity("Forbidden").build();
+		}
+		String initJson = "API Service Commands Call user roles "+gennyToken.getUserRoles();
 		
 		return Response.status(Status.OK).entity(initJson).build();
 	}
@@ -76,8 +88,9 @@ public class ServiceResource {
 
 	@Transactional
 	void onStart(@Observes StartupEvent ev) {
-		log.info("Service Endpoint starting");
-
+		log.info("Service Endpoint starting: ");
+		log.info("KeycloakAuthUrl : "+keycloakAuthUrl);
+		log.info("Keycloak ClientId : "+keycloakClientId);
 
 	}
 
